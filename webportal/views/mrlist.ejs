@@ -1,0 +1,69 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include layout/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include layout/header %>
+
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>      
+        <script type="text/javascript">
+            $(function(){               
+                $('#select_link').click(function(e){
+                    e.preventDefault();
+                    console.log('select_link clicked');
+                    
+                    var data = {};
+                    data.title = "title";
+                    data.message = "message";
+                    
+                    $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        url: 'mrquery/',                      
+                        success: function(data) {
+                            console.log('success');
+                            console.log(JSON.stringify(data));
+                        }
+                        error: function(req) {
+                           alert('Error: ' + req.status);
+                        }
+                    });
+
+                });             
+            });
+        </script>
+
+
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">    
+        <div class="jumbotron">
+            <h1>This is great</h1>
+            <p>Welcome to templating using EJS</p>
+            <div id="select_div"><a href="#" id="select_link">Test</a></div>  
+        </div>
+    </div>
+
+    <div class="col-sm-4">        
+        <div class="well">
+            <h3>Look I'm A Sidebar!</h3>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<footer>
+    <% include layout/footer %>
+</footer>
+
+</body>
+</html>
