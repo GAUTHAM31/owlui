@@ -11,7 +11,7 @@ function queryDatabase(res,connection)
    { console.log('Reading rows from the Table...');
 
        // Read all rows from table
-       var result = {};
+       var result = [];
      request = new Request(
           "SELECT MRNO from Transaction_Record",
              function(err, rowCount, rows) 
@@ -24,7 +24,7 @@ function queryDatabase(res,connection)
 
      request.on('row', function(columns) {
         columns.forEach(function(column) {
-          result[column.value] = {};
+          result.push(column.value);
          });
              });
      connection.execSql(request);

@@ -28,7 +28,14 @@
                         url: 'mrquery/',                      
                         success: function(data) {
                             console.log('success');
-                            console.log(JSON.stringify(data));
+                            console.log(data.length);
+                            var patients_ul = document.getElementsByClassName("patients")[0];
+                            for(var i = 0; i < data.length; i++) {
+                                var li = document.createElement("li");
+                                li.innerHTML = data[i];
+                                patients_ul.appendChild(li);
+                                }
+                            
                         },
                         error: function(req) {
                            alert('Error: ' + req.status);
@@ -49,6 +56,10 @@
             <h1>Owl</h1>
             <p>MR list</p>
             <div id="select_div"><a href="#" id="select_link">Test</a></div>  
+            <div>
+                <ul class="patients">
+                </ul>
+            </div>
         </div>
     </div>
 
