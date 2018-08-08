@@ -13,11 +13,10 @@ function queryDatabase(res,connection)
        // Read all rows from table
        var result = [];
      request = new Request(
-          "SELECT MRNO from Transaction_Record",
+          "SELECT DISTINCT MRNO from Transaction_Record",
              function(err, rowCount, rows) 
                 {
                     console.log(rowCount + ' row(s) returned');
-                    console.log(result);
                     res.send(result);
                 }
             );
@@ -28,8 +27,6 @@ function queryDatabase(res,connection)
          });
              });
      connection.execSql(request);
-     
-     //res.send(result);
    }
 
 router.post('/', function(req, res, next) {
@@ -40,6 +37,7 @@ router.post('/', function(req, res, next) {
    {
      if (err) 
        {
+          console.log('Not-Connected!');
           console.log(err);
        }
     else
@@ -49,8 +47,6 @@ router.post('/', function(req, res, next) {
        }
    }
  );
-	
-	//res.send(req.body);
 });
 
 

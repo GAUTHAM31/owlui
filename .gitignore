@@ -1,1 +1,3 @@
 webportal/routes/db.js
+webportal/routes/.env
+webportal/.env

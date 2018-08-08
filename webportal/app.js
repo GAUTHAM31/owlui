@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,7 +10,11 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mrRouter    = require('./routes/mrlist');
-var mrQuery    = require('./routes/mrquery');
+var mrQuery     = require('./routes/mrquery');
+var mrNo        = require('./routes/mrno');
+var mrData      = require('./routes/mrdata');
+var dateRouter  = require('./routes/date_index');
+var dateAjax  = require('./routes/date_ajax');
 
 
 var app = express();
@@ -26,6 +33,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/mrlist', mrRouter);
 app.use('/mrquery', mrQuery);
+app.use('/mr', mrNo);
+app.use('/mrdata', mrData);
+app.use('/date',dateRouter);
+app.use('/datelist',dateAjax);
 
 
 // catch 404 and forward to error handler

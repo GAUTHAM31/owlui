@@ -1,0 +1,129 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include layout/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include layout/header %>
+
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>      
+        <script type="text/javascript">
+            $(function(){               
+                    console.log('Loading');
+                    
+                    var data = {};
+                    data.title = "Mr number";
+                    data.number = "<%= title %>";
+                    
+                    $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        url: '/mrdata/',                      
+                        success: function(data) {
+                            console.log('success');
+                            var patients_ul = document.getElementsByClassName("patients")[0];
+                            var databind = "sanitizedAttr: { src: imageUri }, visible: imageUri()"
+                            for(var i = 0; i < data.length; i++) {
+                                var li = document.createElement("li");
+                                var img_tag = document.createElement("img");
+                                img_tag.setAttribute('data-bind',databind);
+                                img_tag.setAttribute('src',data[0]);
+                                li.appendChild(img_tag);
+                                patients_ul.appendChild(li);
+                                }
+                            
+                        },
+                        complete: function(){
+                            $('#preloader').hide();
+                        },
+                        error: function(req) {
+                           alert('Error: ' + req.status);
+                        }
+                    });
+
+                });             
+        </script>
+
+
+        <style type="text/css">
+            .loader{
+                  margin: 0 0 2em;
+                  height: 100px;
+                  width: 20%;
+                  text-align: center;
+                  padding: 1em;
+                  margin: 0 auto 1em;
+                  display: inline-block;
+                  vertical-align: top;
+            }
+
+        /*
+          Set the color of the icon
+        */
+            svg path,
+            svg rect{
+              fill: #FF6700;
+            }
+        </style>
+
+
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">    
+        <div class="jumbotron">
+            <h1><%= title %></h1>
+            <p>MR data</p>
+            <div id="Loading">
+                <div class="loader loader--style5" id="preloader" title="4">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <rect x="0" y="0" width="4" height="10" fill="#333">
+                      <animateTransform attributeType="xml"
+                        attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0"
+                        begin="0" dur="0.6s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="10" y="0" width="4" height="10" fill="#333">
+                      <animateTransform attributeType="xml"
+                        attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0"
+                        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="20" y="0" width="4" height="10" fill="#333">
+                      <animateTransform attributeType="xml"
+                        attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0"
+                        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+                    </rect>
+                  </svg>
+                </div>
+            </div>  
+            <div>
+                <ul class="patients">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">        
+        <div class="well">
+            <h3>Look I'm A Sidebar!</h3>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<footer>
+    <% include layout/footer %>
+</footer>
+
+</body>
+</html>
