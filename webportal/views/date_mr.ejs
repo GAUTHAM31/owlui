@@ -9,23 +9,23 @@
                     console.log('Loading');
                     
                     var data = {};
-                    data.title = "title";
-                    data.message = "message";
+                    data.title = "Date";
+                    data.date = "<%= date %>";
                     
                     $.ajax({
                         type: 'POST',
                         data: JSON.stringify(data),
                         contentType: 'application/json',
-                        url: '/datelist/',                      
+                        url: '/datemrlist/',                      
                         success: function(data) {
                             console.log('success');
+                            console.log(data);
                             var patients_ul = document.getElementsByClassName("date")[0];
                             for(var i = 0; i < data.length; i++) {
                                 var li = document.createElement("li");
                                 var a_tag = document.createElement("a");
-                                var date = data[i];
-                                a_tag.setAttribute('href',"/date/"+date);
-                                a_tag.innerHTML = date;
+                                a_tag.setAttribute('href',"/date/<%= date %>/"+data[i]);
+                                a_tag.innerHTML = data[i];
                                 li.appendChild(a_tag);
                                 patients_ul.appendChild(li);
                                 }

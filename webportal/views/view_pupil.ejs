@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" >
-
-<head>
-  <meta charset="UTF-8">
-  <title>Patient list</title>
-  
-  
-  
-      <link rel="stylesheet" href="/stylesheets/navbar.css">
-      <link rel="stylesheet" href="/stylesheets/gallery.css">
-      <link rel="stylesheet" href="/stylesheets/preloader.css">
-
-  
-</head>
-
-<body>
-
-  <html>
+<html>
   <head>
- 
-  </head>
-  <body><div class="area"></div><nav class="main-menu">
+    <title>Detailed Patient view</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/navbar.css' />
+    <link rel="stylesheet" href="/stylesheets/preloader.css">
+    <link rel="stylesheet" href="/stylesheets/folder.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"> 
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+        </head>
+  <body>
+  	<nav class="main-menu">
             <ul>
                 <li>
                     <a href="/">
@@ -60,7 +52,7 @@
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-bar-chart-o fa-2x"></i>
+                        <i class="fa fa-chart-pie fa-2x"></i>
                         <span class="nav-text">
                             Graphs and Statistics
                         </span>
@@ -87,14 +79,38 @@
                 </li>  
             </ul>
         </nav>
+  	<div class="content">
+    <h2>Owl</h2>
 
-</div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script  src="/javascripts/table.js"></script>
-    <script  src="/javascripts/mr_ajax.js"></script>
+        	<div class="folder-view">
+        		<form>
+					<h1><%= mrno %> - <%= date %></h1>
+						<div class="tree">
+						<div>
+						  <input id="n-0" type="checkbox">
+						  <label for="n-0">Image</label>
+						  <div class="sub">
+						    <a class="atag" id="os" href="#">OS</a>
+						    <a class="atag" id="od" href="#">OD</a>
+						  </div>
+						</div>
+						<div>
+						  <i class="far fa-file-alt"></i> <a id="config" href="#"> config.txt</a>
+						</div>
+
+						  </div>
+						</div>
+						</div>
+					</form>
+
+
+
+            </div>
+    </div>
   </body>
-    </html>  
-
-</body>
-
+  <script type="text/javascript">
+		date = "<%= date %>";
+		number = "<%= mrno %>";
+	</script>
+	<script type="text/javascript" src="/javascripts/folder.js"></script>
 </html>

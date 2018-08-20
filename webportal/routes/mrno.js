@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/:mrno', function(req, res, next) {
-	var mrno = "MR"+req.params.mrno;
+	var mrno = req.params.mrno;
 	res.render('mrno', { title: mrno });
 });
 

@@ -23,9 +23,12 @@ function queryDatabase(res,connection)
 
      request.on('row', function(columns) {
         columns.forEach(function(column) {
-          var date = new Date(column.value);
-          console.log(column.value);
-          result.push(column.value);
+          var date  = new Date(column.value);
+          var year  = date.getFullYear()
+          var month = date.getMonth()+1
+          var day   = date.getDate()
+          var final_date = ""+year+"-"+month+"-"+day
+          result.push(final_date);
          });
              });
      connection.execSql(request);

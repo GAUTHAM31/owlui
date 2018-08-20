@@ -9,12 +9,18 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var owlRouter = require('./routes/owl');
+var pupilRouter = require('./routes/pupil');
 var mrRouter    = require('./routes/mrlist');
 var mrQuery     = require('./routes/mrquery');
+var mrPupil     = require('./routes/mrquery-pupil');
 var mrNo        = require('./routes/mrno');
 var mrData      = require('./routes/mrdata');
 var dateRouter  = require('./routes/date_index');
-var dateAjax  = require('./routes/date_ajax');
+var dateAjax    = require('./routes/date_ajax');
+var dateMrAjax  = require('./routes/date_mr_ajax');
+var dateImage   = require('./routes/date_image_ajax');
+var viewRouter  = require('./routes/view_ajax');
 
 
 var app = express();
@@ -31,12 +37,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/owl', owlRouter);
+app.use('/pupil', pupilRouter);
 app.use('/mrlist', mrRouter);
 app.use('/mrquery', mrQuery);
+app.use('/mrquery_pupil', mrPupil);
 app.use('/mr', mrNo);
 app.use('/mrdata', mrData);
 app.use('/date',dateRouter);
 app.use('/datelist',dateAjax);
+app.use('/datemrlist',dateMrAjax);
+app.use('/date_image',dateImage);
+app.use('/view',viewRouter);
 
 
 // catch 404 and forward to error handler

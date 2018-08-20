@@ -7,13 +7,14 @@ var config = require('./db.js')
 
 
 
-function queryDatabase(res,connection)
+function queryDatabase(res,connection,date)
    { console.log('Reading rows from the Table...');
 
        // Read all rows from table
-       var result   = [];
+       var result = [];
+       
      request = new Request(
-          "SELECT DISTINCT MRNO,Date,DeviceName from Transaction_Record Order by Date DESC",
+          "SELECT DISTINCT MRNO from Transaction_Record WHERE CONVERT(date, Date) = CONVERT(date, '"+date+"')",
              function(err, rowCount, rows) 
                 {
                     console.log(rowCount + ' row(s) returned');
@@ -22,20 +23,20 @@ function queryDatabase(res,connection)
             );
 
      request.on('row', function(columns) {
-        var row_json = {}
         columns.forEach(function(column) {
-          row_json[column.metadata.colName] = column.value;
+          var date = new Date(column.value);
+          console.log(column.value);
+          result.push(column.value);
          });
-        result.push(row_json);
              });
      connection.execSql(request);
    }
 
 router.post('/', function(req, res, next) {
- 	var obj = {};
- 	console.log('Function');
- 	var connection = new Connection(config);
- 	connection.on('connect', function(err) 
+  var obj = {};
+  console.log('Function');
+  var connection = new Connection(config);
+  connection.on('connect', function(err) 
    {
      if (err) 
        {
@@ -44,8 +45,8 @@ router.post('/', function(req, res, next) {
        }
     else
        {
-       		console.log('Connected');
-        	queryDatabase(res,connection);
+          console.log('Connected');
+          queryDatabase(res,connection,req.body.date);
        }
    }
  );

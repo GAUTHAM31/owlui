@@ -3,13 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Patient list</title>
+  <title>Sidebar Menu Hover Show/Hide CSS</title>
   
   
   
       <link rel="stylesheet" href="/stylesheets/navbar.css">
-      <link rel="stylesheet" href="/stylesheets/gallery.css">
-      <link rel="stylesheet" href="/stylesheets/preloader.css">
+      <link rel="stylesheet" href="/stylesheets/table.css">
 
   
 </head>
@@ -32,7 +31,7 @@
                   
                 </li>
                 <li class="has-subnav">
-                    <a href="/owl">
+                    <a href="#">
                         <i class="fa fa-laptop fa-2x"></i>
                         <span class="nav-text">
                           Owl
@@ -41,7 +40,7 @@
                     
                 </li>
                 <li class="has-subnav">
-                    <a href="/pupil">
+                    <a href="#">
                        <i class="fa fa-list fa-2x"></i>
                         <span class="nav-text">
                             Pupil+
@@ -87,11 +86,41 @@
                 </li>  
             </ul>
         </nav>
-
+        <div class="table">
+		<div class="table-header">
+			<div class="header__item"><a id="name" class="filter__link" href="#">Name</a></div>
+			<div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Wins</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Draws</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Losses</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">Total</a></div>
+		</div>
+		<div class="table-content">	
+			<div class="table-row">		
+				<div class="table-data">Tom</div>
+				<div class="table-data">2</div>
+				<div class="table-data">0</div>
+				<div class="table-data">1</div>
+				<div class="table-data">5</div>
+			</div>
+			<div class="table-row">
+				<div class="table-data">Dick</div>
+				<div class="table-data">1</div>
+				<div class="table-data">1</div>
+				<div class="table-data">2</div>
+				<div class="table-data">3</div>
+			</div>
+			<div class="table-row">
+				<div class="table-data">Harry</div>
+				<div class="table-data">0</div>
+				<div class="table-data">2</div>
+				<div class="table-data">2</div>
+				<div class="table-data">2</div>
+			</div>
+		</div>	
+	</div>
 </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script  src="/javascripts/table.js"></script>
-    <script  src="/javascripts/mr_ajax.js"></script>
+    <script  src="/javascript/table.js"></script>
   </body>
     </html>  
 

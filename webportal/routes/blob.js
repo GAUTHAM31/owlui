@@ -10,7 +10,7 @@ const containerName = 'owl-data';
 
 const list = () => {
     return new Promise((resolve, reject) => {
-        blobService.listBlobsSegmentedWithPrefix(containerName,'MR01', null, (err, data) => {
+        blobService.listBlobsSegmentedWithPrefix(containerName,'MR01/2018/', null, (err, data) => {
             if(err) {
             	console.log(err);
                 reject(err);
@@ -22,10 +22,23 @@ const list = () => {
     });
 };
 
+const download = () => {
+    const dowloadFilePath = './download.jpg'
+    var blobName = 'MR01/2018/7/30/13_4_20/Images/OS/1.jpg'
+    return new Promise((resolve, reject) => {
+        blobService.getBlobToLocalFile(containerName, blobName, dowloadFilePath, err => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve({ message: `Download of '${blobName}' complete` });
+            }
+        });
+    });
+};
 const executeCommand = async () => {
     const response = await list();
 
-    console.log(response.data);
+    console.log(response.data.entries);
 }
 
 executeCommand();

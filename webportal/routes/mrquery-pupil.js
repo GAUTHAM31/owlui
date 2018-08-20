@@ -3,7 +3,7 @@ var router = express.Router();
 //For Database
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
-var config = require('./db.js')
+var config = require('./db-pupil.js')
 
 
 

@@ -3,30 +3,30 @@
   <head>
     <title>date view</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-            <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>      
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>      
         <script type="text/javascript">
             $(function(){               
                     console.log('Loading');
                     
                     var data = {};
-                    data.title = "title";
-                    data.message = "message";
+                    data.date = "<%= date %>";
+                    data.number = "<%= mrno %>";
                     
                     $.ajax({
                         type: 'POST',
                         data: JSON.stringify(data),
                         contentType: 'application/json',
-                        url: '/datelist/',                      
+                        url: '/date_image/',                      
                         success: function(data) {
                             console.log('success');
                             var patients_ul = document.getElementsByClassName("date")[0];
+                            var databind = "sanitizedAttr: { src: imageUri }, visible: imageUri()"
                             for(var i = 0; i < data.length; i++) {
                                 var li = document.createElement("li");
-                                var a_tag = document.createElement("a");
-                                var date = data[i];
-                                a_tag.setAttribute('href',"/date/"+date);
-                                a_tag.innerHTML = date;
-                                li.appendChild(a_tag);
+                                var img_tag = document.createElement("img");
+                                img_tag.setAttribute('data-bind',databind);
+                                img_tag.setAttribute('src',data[i]);
+                                li.appendChild(img_tag);
                                 patients_ul.appendChild(li);
                                 }
                             
@@ -66,8 +66,8 @@
   </head>
   <body>
     <h1>Owl</h1>
-    <p>Date List</p>
-    	<div id="Loading">
+    <p>Image List</p>
+    	<div id="preloader">
                 <div class="loader loader--style5" id="preloader" title="4">
                   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
