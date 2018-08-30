@@ -47,10 +47,12 @@ $(function(){
                 div_date.innerHTML   = date;
                 div_device.innerHTML = data[i].DeviceName;
                 //options- download and view
-                var month = date.getMonth()+1;
-                date = ""+date.getFullYear()+"-"+month+"-"+date.getDate();
+                var visited_time = data[i].file_blob.split("/").pop();
+                var month = date.getUTCMonth()+1;
+                date = ""+date.getUTCFullYear()+"-"+month+"-"+date.getUTCDate();
+
                 a_view.innerHTML      = "<i class=\"fas fa-eye\" title='View'></i>"
-                a_view.setAttribute('href',"/date/"+date+"/"+mrno);
+                a_view.setAttribute('href',"/date/"+date+"/"+mrno+"/"+visited_time);
                 div_opt.appendChild(a_view);
 
                 var icon = "<i class=\"fas fa-download\" title='Download Data'></i>";
@@ -70,10 +72,51 @@ $(function(){
         },
         complete: function(){
             $('#loading').hide();
+            $('.fa-download').click(function(){
+
+                    //download($this);
+
+                });
         },
         error: function(req) {
            alert('Error: ' + req.status);
         }
     });
 
+    
+
 });             
+
+ function download()
+ {
+    console.log('downloading');
+    var a = document.querySelector("a");
+      var urls = ["http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_39_43/Images/plot.svg", "http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_39_43/Images/OS_radius.csv","http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_36_59/config.txt"];
+
+      function request(url) {
+        return new Promise(function(resolve) {
+          var httpRequest = new XMLHttpRequest();
+          httpRequest.open("GET", url+"?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2021-07-01T19:54:40Z&st=2018-08-28T11:54:40Z&spr=https,http&sig=6EDlKkP1W0D8eVoaooG%2FJqNmsKTkWV5JWBLi%2B3J5s30%3D");
+          httpRequest.onload = function() {
+            zip.file(url, this.responseText);
+            resolve()
+          }
+          httpRequest.send()
+        })
+      }
+
+      Promise.all(urls.map(function(url) {
+          return request(url)
+        }))
+        .then(function() {
+          console.log(zip);
+          zip.generateAsync({
+              type: "blob"
+            })
+            .then(function(content) {
+              a.download = "folder" + new Date().getTime();
+              a.href = URL.createObjectURL(content);
+              a.innerHTML = "download " + a.download;
+            });
+        })
+ }

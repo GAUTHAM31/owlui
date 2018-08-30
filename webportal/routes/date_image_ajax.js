@@ -22,8 +22,8 @@ const list = (blob_prefix) => {
     });
 };
 
-const executeCommand = async (res,date,mrnumber) => {
-    blob_prefix = mrnumber+"/"+date.replace(/-/g,"/")
+const executeCommand = async (res,date,mrnumber,time,eye) => {
+    blob_prefix = mrnumber+"/"+date.replace(/-/g,"/")+"/"+time+"/Images/"+eye
     const response = await list(blob_prefix);
     var result = [];
     console.log(blob_prefix);
@@ -38,7 +38,7 @@ const executeCommand = async (res,date,mrnumber) => {
 
 
 router.post('/', function(req, res, next) {
-  executeCommand(res,req.body.date,req.body.number);
+  executeCommand(res,req.body.date,req.body.number,req.body.time,req.body.eye);
 });
 
 

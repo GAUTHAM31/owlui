@@ -15,7 +15,6 @@ $(function(){
             var div_list = document.getElementsByClassName("table-content")[0];
             for(var i = 0; i < data.length; i++) {
                 
-                //div--table row----
                 var div_row = document.createElement("div");
                 div_row.setAttribute('class','table-row');
                 
@@ -34,16 +33,35 @@ $(function(){
 
                 // a tags
                 var a_tag = document.createElement("a");
+                var a_view = document.createElement("a");
+                var a_download = document.createElement("a");
                 
-                var mrno = data[i].MRNO.match(/\d/g);
+                var mrno = data[i].MRNO
                 a_tag.setAttribute('href',"/mr/"+mrno);
                
                 a_tag.innerHTML      = data[i].MRNO;
-                div_mrno.appendChild(a_tag);
+                //div_mrno.appendChild(a_tag);
+                div_mrno.innerHTML = data[i].MRNO;
                 var date = new Date(data[i].Date);
                 div_date.innerHTML   = date;
                 div_device.innerHTML = data[i].DeviceName;
-                div_opt.innerHTML    =  'Download';
+                //options- download and view
+                var visited_time = data[i].file_blob.split("/").pop();
+                var month_ = date.getMonth()+1;
+                var month = '';
+                if (month_<10) {
+                    month = '0'+month_;
+                }
+                date = ""+date.getFullYear()+"-"+month+"-"+date.getDate();
+                a_view.innerHTML      = "<i class=\"fas fa-eye\" title='View'></i>"
+                a_view.setAttribute('href',"pupil/"+date+"/"+mrno+"/"+visited_time);
+                div_opt.appendChild(a_view);
+
+                var icon = "<i class=\"fas fa-download\" title='Download Data'></i>";
+                a_download.innerHTML = "&nbsp;&nbsp; | &nbsp; &nbsp;"+ icon;
+                //a_download.setAttribute('href',"#");
+                div_opt.appendChild(a_download);
+                //div_opt.innerHTML    =  'Download';
 
                 div_row.appendChild(div_mrno);
                 div_row.appendChild(div_date);

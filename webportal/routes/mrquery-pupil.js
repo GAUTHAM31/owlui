@@ -13,7 +13,7 @@ function queryDatabase(res,connection)
        // Read all rows from table
        var result   = [];
      request = new Request(
-          "SELECT DISTINCT MRNO,Date,DeviceName from Transaction_Record Order by Date DESC",
+          "SELECT DISTINCT MRNO,Date,DeviceName,file_blob from Transaction_Record Order by Date DESC",
              function(err, rowCount, rows) 
                 {
                     console.log(rowCount + ' row(s) returned');

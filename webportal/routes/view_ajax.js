@@ -12,7 +12,7 @@ const containerName = 'pupil-data';
 const list = (blob_prefix) => {
     console.log('listing');
     return new Promise((resolve, reject) => {
-        blobService.listBlobsSegmentedWithPrefix(containerName,blob_prefix, null, (err, data) => {
+        blobService.listBlobDirectoriesSegmentedWithPrefix(containerName,blob_prefix, null, (err, data) => {
             if(err) {
               console.log(err);
                 reject(err);
@@ -29,11 +29,27 @@ const executeCommand = async (res,date,mrnumber,dir) => {
     blob_prefix = mrnumber+"/"+date.replace(/-/g,"/");
     var result = [];
     const response = await list(blob_prefix);
-        for(var i = 0; i < response_folder.data.entries.length; i++)
-                {
-                  var link = response_folder.data.entries[i].name;
-                  result.push(link);
-                }
+    
+    for(var i = 0; i < response_folder.data.entries.length; i++){
+        var row = {};
+        var folder = response_folder.data.entries[i].name.split("/").pop();
+        if (folder === "OS") {
+            row[os] = "True";
+        }
+        else if (folder === "OD") {
+            row [od] = "True";
+        }
+        result.push(row);
+    }
+
+    var file = response.data.entries[0].name.split("/").pop();
+    if ( file === "config.txt") {
+        var row  = {};
+        row[txt] = "True";
+        result.push(row);
+    }
+
+
     res.send(result);
 }
 

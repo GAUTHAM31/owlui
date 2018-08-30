@@ -56,7 +56,7 @@ input[type="checkbox"] {
   left: -9999px;
 }
 
-label, .atag {
+label, .dir, .file{
   display: block;
   float: left;
   clear: left;
@@ -69,7 +69,7 @@ label, .atag {
   cursor: pointer;
 }
 
-label::before, .atag::before {
+label::before, .dir::before, .file::before {
   display: block;
   position: absolute;
   top: 6px;
@@ -85,11 +85,15 @@ input:checked + label::before {
   content: '\f07c'; /* open folder */
 }
 
-.atag::before {
+.dir::before {
   content: '\f07b'; /* closed folder */
 }
 
-input:focus + label, .atag:focus {
+.file::before{
+  content: '\f15c';
+}
+
+input:focus + label, .dir:focus, .file::before {
   outline: none;
   background-color: #b9c3c9;
 }

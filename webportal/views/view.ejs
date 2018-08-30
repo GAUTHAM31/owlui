@@ -81,21 +81,45 @@
         </nav>
   	<div class="content">
     <h2>Owl</h2>
+    <div id="preloader">
+        <div class="loader loader--style5" id="preloader" title="4">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="0" width="4" height="10" fill="#333">
+              <animateTransform attributeType="xml"
+                attributeName="transform" type="translate"
+                values="0 0; 0 20; 0 0"
+                begin="0" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+            <rect x="10" y="0" width="4" height="10" fill="#333">
+              <animateTransform attributeType="xml"
+                attributeName="transform" type="translate"
+                values="0 0; 0 20; 0 0"
+                begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+            <rect x="20" y="0" width="4" height="10" fill="#333">
+              <animateTransform attributeType="xml"
+                attributeName="transform" type="translate"
+                values="0 0; 0 20; 0 0"
+                begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+          </svg>
+        </div>
+    </div> 
 
-        	<div class="folder-view">
+        	<div class="folder-view" id="folder" hidden="True">
         		<form>
 					<h1><%= mrno %> - <%= date %></h1>
-						<div class="tree">
+                     <div class="tree">
 						<div>
 						  <input id="n-0" type="checkbox">
 						  <label for="n-0">Image</label>
-						  <div class="sub">
-						    <a class="atag" id="os" href="#">OS</a>
-						    <a class="atag" id="od" href="#">OD</a>
+						  <div class="sub" id="images">
+						    
 						  </div>
 						</div>
-						<div>
-						  <i class="far fa-file-alt"></i> <a id="config" href="#"> config.txt</a>
+						<div id="txt">
+						  
 						</div>
 
 						  </div>
@@ -109,8 +133,13 @@
     </div>
   </body>
   <script type="text/javascript">
-		date = "<%= date %>";
-		number = "<%= mrno %>";
+    var data = {};
+		data.date = "<%= date %>";
+		data.number = "<%= mrno %>";
+        data.time = "<%= time %>";
+        date = "<%= date %>";
+        number = "<%= mrno %>";
+        time = "<%= time %>";
 	</script>
-	<script type="text/javascript" src="/javascripts/folder.js"></script>
+	<script type="text/javascript" src="/javascripts/folder_ajax.js"></script>
 </html>

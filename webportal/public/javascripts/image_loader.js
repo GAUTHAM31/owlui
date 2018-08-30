@@ -11,14 +11,17 @@ $(function(){
             var img_ul = document.getElementById("lightgallery");
 
             var databind    = "sanitizedAttr: { src: imageUri }, visible: imageUri()"
-            var datasrc     = data[0];
+            
 
 
             for(var i = 0; i < data.length; i++) {
 
+                var datasrc     = data[i];
+                var heading     = data[i].split("/").pop();
+
                 var li = document.createElement("li");
                 li.setAttribute('data-src',datasrc);
-                li.setAttribute('data-sub-html',"Heading");
+                li.setAttribute('data-sub-html',heading);
 
                 var img_tag = document.createElement("img");
                 img_tag.setAttribute('class','img-responsive');

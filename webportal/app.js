@@ -21,6 +21,9 @@ var dateAjax    = require('./routes/date_ajax');
 var dateMrAjax  = require('./routes/date_mr_ajax');
 var dateImage   = require('./routes/date_image_ajax');
 var viewRouter  = require('./routes/view_ajax');
+var folderAjax  = require('./routes/folder_ajax');
+var download    = require('./routes/download');
+var folderPupil  = require('./routes/folder_ajax_pupil');
 
 
 var app = express();
@@ -48,6 +51,9 @@ app.use('/date',dateRouter);
 app.use('/datelist',dateAjax);
 app.use('/datemrlist',dateMrAjax);
 app.use('/date_image',dateImage);
+app.use('/folder_ajax',folderAjax);
+app.use('/folder_ajax_pupil',folderPupil);
+app.use('/download',download)
 app.use('/view',viewRouter);
 
 

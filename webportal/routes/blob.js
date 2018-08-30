@@ -6,11 +6,12 @@ const args = require('yargs').argv;
 const storage = require('azure-storage');
 
 const blobService = storage.createBlobService();
-const containerName = 'owl-data';
+const containerName = 'pupil-data';
 
 const list = () => {
     return new Promise((resolve, reject) => {
-        blobService.listBlobsSegmentedWithPrefix(containerName,'MR01/2018/', null, (err, data) => {
+        var options = {'delimiter':'/'}//P1090119/2016/02/11/16_28_58/Images/
+        blobService.listBlobsSegmentedWithPrefix(containerName,'P1059517/2018/08/17/15_56_49/Images/', null , options,(err, data) => {
             if(err) {
             	console.log(err);
                 reject(err);
@@ -24,7 +25,7 @@ const list = () => {
 
 const download = () => {
     const dowloadFilePath = './download.jpg'
-    var blobName = 'MR01/2018/7/30/13_4_20/Images/OS/1.jpg'
+    var blobName = 'MR01/2018/7/30/13_4_20/Images/OS/1.jpg';
     return new Promise((resolve, reject) => {
         blobService.getBlobToLocalFile(containerName, blobName, dowloadFilePath, err => {
             if(err) {
