@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "archiver": "^3.0.0",
     "azure-storage": "^2.10.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
@@ -14,7 +15,10 @@
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "jszip-utils": "0.0.2",
     "morgan": "~1.9.0",
+    "request": "^2.88.0",
     "yargs": "^12.0.1"
-  }
+  },
+  "devDependencies": {}
 }

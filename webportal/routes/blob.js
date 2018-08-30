@@ -6,12 +6,12 @@ const args = require('yargs').argv;
 const storage = require('azure-storage');
 
 const blobService = storage.createBlobService();
-const containerName = 'pupil-data';
+const containerName = 'owl-data';
 
 const list = () => {
     return new Promise((resolve, reject) => {
         var options = {'delimiter':'/'}//P1090119/2016/02/11/16_28_58/Images/
-        blobService.listBlobsSegmentedWithPrefix(containerName,'P1059517/2018/08/17/15_56_49/Images/', null , options,(err, data) => {
+        blobService.listBlobsSegmentedWithPrefix(containerName,'MRyubro/2018/8/22/10_54_4', null , options,(err, data) => {
             if(err) {
             	console.log(err);
                 reject(err);

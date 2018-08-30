@@ -76,3 +76,11 @@ h1, h2, h3, h4, h5, h6 {
 .filter__link.asc::after {
   content: '(asc)';
 }
+.fa-download
+{
+  padding-left: 20px;
+}
+.fa-spinner
+{
+  padding-left: 20px;
+}

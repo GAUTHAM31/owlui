@@ -55,8 +55,11 @@ $(function(){
                 a_view.setAttribute('href',"/date/"+date+"/"+mrno+"/"+visited_time);
                 div_opt.appendChild(a_view);
 
-                var icon = "<i class=\"fas fa-download\" title='Download Data'></i>";
-                a_download.innerHTML = "&nbsp;&nbsp; | &nbsp; &nbsp;"+ icon;
+                var value = "" + mrno + "/" + date + "/" + visited_time ; 
+                value = value.replace(/-/g,'/');
+                var icon = "<i class=\"fas fa-download\" title='Download Data' id="+value+" data-val="+value+"></i>";
+                a_download.setAttribute('download',mrno);
+                a_download.innerHTML = icon;
                 //a_download.setAttribute('href',"#");
                 div_opt.appendChild(a_download);
                 //div_opt.innerHTML    =  'Download';
@@ -74,7 +77,9 @@ $(function(){
             $('#loading').hide();
             $('.fa-download').click(function(){
 
-                    //download($this);
+                    var value = $(this).data('val');
+                     $(this).css("color", "blue");
+                     download(value);
 
                 });
         },
@@ -87,36 +92,58 @@ $(function(){
 
 });             
 
- function download()
+ function download(value)
  {
-    console.log('downloading');
-    var a = document.querySelector("a");
-      var urls = ["http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_39_43/Images/plot.svg", "http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_39_43/Images/OS_radius.csv","http://srujana.blob.core.windows.net/pupil-data/N109156/2018/08/17/15_36_59/config.txt"];
 
-      function request(url) {
-        return new Promise(function(resolve) {
-          var httpRequest = new XMLHttpRequest();
-          httpRequest.open("GET", url+"?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2021-07-01T19:54:40Z&st=2018-08-28T11:54:40Z&spr=https,http&sig=6EDlKkP1W0D8eVoaooG%2FJqNmsKTkWV5JWBLi%2B3J5s30%3D");
-          httpRequest.onload = function() {
-            zip.file(url, this.responseText);
-            resolve()
-          }
-          httpRequest.send()
-        })
+  var icon = document.getElementById(value);
+  var data = {};
+  data.blob_name = value;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/download", true);
+  xhr.setRequestHeader("Content-type","application/json");
+  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          // alert("Failed to download:" + xhr.status + "---" + xhr.statusText);
+          var blob = new Blob([xhr.response], {type: "octet/stream"});
+          var fileName = value+".zip";
+          icon.setAttribute('style','color:\'black\'')
+          saveAs(blob, fileName);
       }
+  }
+  xhr.responseType = "arraybuffer";
+  xhr.send(JSON.stringify(data));
 
-      Promise.all(urls.map(function(url) {
-          return request(url)
-        }))
-        .then(function() {
-          console.log(zip);
-          zip.generateAsync({
-              type: "blob"
-            })
-            .then(function(content) {
-              a.download = "folder" + new Date().getTime();
-              a.href = URL.createObjectURL(content);
-              a.innerHTML = "download " + a.download;
-            });
-        })
+//     let data = {};
+//     data.blob_name = value;
+//     console.log('downloading', data.blob_name);
+
+// $.ajax({
+//         type: 'POST',
+//         data: JSON.stringify(data),
+//         contentType: 'application/json',
+//         url: 'download/',                      
+//         success: function(data) {
+//             console.log(data);
+//             const link = document.createElement('a');
+//             link.download = value+'.zip';
+//             const blob = new Blob([ data ]);
+//             link.href = URL.createObjectURL(blob);
+//             link.click();
+// /*           */
+            
+//         },
+//         complete: function(){
+
+//         },
+//         error: function(req) {
+//            alert('Error: ' + req.status);
+//         }
+//     });
+
+
+
+
+// /*   */
  }
